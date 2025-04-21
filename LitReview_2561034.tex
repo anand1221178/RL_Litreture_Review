@@ -1,0 +1,320 @@
+\documentclass[12pt, a4paper]{article} % Using 12pt font on A4 paper
+
+% --- PACKAGES ---
+\usepackage[utf8]{inputenc} % Input encoding
+\usepackage[T1]{fontenc}    % Font encoding - recommended for better font handling
+\usepackage{amsmath}        % For math environments
+\usepackage{graphicx}       % For including images (like the logo)
+\usepackage[round]{natbib}  % For bibliography citations
+\usepackage[margin=1in]{geometry} % Set standard 1-inch margins
+\usepackage{hyperref}       % For clickable cross-references and URLs
+\hypersetup{
+    colorlinks=true,        % false: boxed links; true: colored links
+    linkcolor=blue,         % color of internal links (sections, figures, etc.)
+    citecolor=blue,      % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+\usepackage{times} % Use Times New Roman font - often preferred academically
+
+% --- TITLE PAGE INFORMATION ---
+% <<< Details are used manually below, but kept here for potential metadata use >>>
+\title{Learning Robust Policies Via Training-Time Failure Injection: A Literature Review}
+\author{Anand Patel \\ Student Number: 2561034} % Author and ID combined for metadata if needed
+\date{\today} % Or specify a date: \date{Month Day, Year}
+
+% --- DOCUMENT START ---
+\begin{document}
+
+% --- TITLE PAGE ---
+\begin{titlepage}
+    \centering % Center everything on the title page
+
+    % --- University Logo ---
+    \vspace*{1cm} % Add some space at the top
+    \includegraphics[width=0.3\textwidth]{witslogo_h.png} % Path to your logo file
+    \vspace{2cm} % Space after the logo
+
+    % --- Title ---
+    % Use \thetitle to get the content from \title{...}
+    {\Huge\bfseries Learning Robust Policies for Continuous Control with Limb Dropout: A Literature Review \par} % Make title bold and huge, add paragraph break
+
+    \vspace{1.5cm} % Space after the title
+
+    % --- Author Name ---
+    {\Large \textit{Anand Patel} \par} % Manually add Author Name
+    \vspace{0.5cm} % Space between name and ID
+
+    % --- Student ID ---
+    {\large Student Number: 2561034 \par} % Manually add Student ID
+
+    \vfill % Pushes the date to the bottom
+
+    % --- Date ---
+    {\large \today} % Use \today or the date specified in \date{...}
+
+\end{titlepage}
+
+% --- TABLE OF CONTENTS ---
+\newpage % Start ToC on a new page
+\tableofcontents % Generate the Table of Contents
+\newpage % Start main content on a new page
+
+% --- ORIGINAL DOCUMENT CONTENT (UNCHANGED) ---
+
+\section{Introduction}
+\label{sec:introduction} % Add a label for cross-referencing
+\noindent
+Modern robots are showing increasing intelligence and capability, being able to complete complex tasks across many industries, from manufacturing and logistics to critical real-world missions like search and rescue, patrol, and delivery \citep{liu2023saving}.
+However, unlike animals which possess a remarkable ability to sustain operation after injury by creating compensatory behaviours \citep{bongard2006resilient}, current robotic systems often remain fragile when faced with unexpected hardware failures.
+Actuators can experience issues like joint locking, free-swinging, or broken components \citep{liu2023saving}, while manipulators used in applications such as surgery or space exploration, which require careful fine-tuning, are prone to the same faults that could lead to catastrophic consequences \citep{pham2024adaptive}.
+Such failures not only risk harm but also casue unwanted downtime and decreases the availability \citep{liu2023saving}.
+Achieving \textbf{robust} \textbf{fault tolerance}— which is the ability for a system to continue operation under faulty conditions \citep{blanke1997, ahmed2020fault}—is an important consideration in the design and control of autonomous systems, particularly for complex robots operating in unpredictable environments \citep{liu2023saving}. \\\\
+Reinforcement Learning (RL) is a powerful framework for developing controllers for such systems , it allows agents to learn control strategies - policies, directly from interaction data (Andrew and Richard S,2018). A policy decides the robot's actions based on it's current state and environment, with the aim to maximise long-term performance, measured by the total reward which it accumalates over its current lifespan. In the context of achieving fault tolerance and RL, there have been numerous stratergies that have been developed. \textbf{This literature review will primarily focus on methods that aim to achieve robustness proactively during the policy learning phase.}
+In specific, we will focus on approach where hardware failures, such as actuator malfunctions or sensors become noisy - which leads to them not giving accurate data, are injected during training. With the main goal of developing control policies that are resillient to these faults when deployed to the real world.
+\\\\
+    This RL methodology contrasts with the traditional \textbf{Fault-Tolerant Control (\hyperref[def:ftc]{FTC})} architectures used, which rely on seperate modules for fault detection and diagnosis which lead to accomodation stratergies used \textit{after} a fault occurs \citep{blanke1997, ahmed2020fault}.
+The field of RL has many relevant paradigms to achieve fault tolerance, such as \textbf{Domain Randomization (DR)} which trains policies with varied simulation parameters \citep[]{liu2023saving, rajeswaran2016epopt}, \textbf{Adversarial Training} where policies learn against opponents which try to disrupt your behaviour, \textbf{Online Adaptation} techniques where the robot learns the compensatory behaviours to damage \textit{after} it is damaged \citep{cully2015robots, chatzilygeroudis2018reset, pham2024adaptive} and \textbf{Policy Regularization} methods that promote smooth or stable policies, which directly contribute to robustness \citep[e.g.,][]{shen2020deep}.\\\\
+\noindent
+Policies trained with randomization may still fail when they experience failure modes not learnt or seen it's in entirety in training, or they may become overly conservative \citep[]{rajeswaran2016epopt}.
+Therefore developing effective training strategies which directly incorporate realistic failure modes during training, such as limb dropout - central to this review's focus, can produce a notable improvement to the robot's resilience.
+The development of policies robust to common hardware failures like actuator malfunction or sensor noise enablea more reliable long-term usage of autonomous systems in complex, safety-critical, or remote environments, reducing the need for constant human oversight or complex recovery mechanisms \citep{cully2015robots, liu2023saving}.\\\\
+\noindent
+This review aims to synthesize the current state of research relevant to learning robust policies via training-time failure injection.
+Section~\ref{sec:background} provides necessary background concepts.
+Section~\ref{sec:approaches} explores the different approaches identified in the literature for achieving robustness, detailing the specific reinforcement learning methodologies employed within each paradigm.
+Section~\ref{sec:evaluation} discusses how policy robustness is evaluated, and Section~\ref{sec:conclusion} concludes the review.
+%(Remember to replace sec: labels with your actual section labels once defined)
+
+% --- End of Introduction Section ---
+
+% --- Start of Background Section ---
+\section{Background}
+\label{sec:background}
+
+This section introduces the foundational concepts of reinforcement learning, the specifics of applying it to continuous robot control, the challenges necessitating robustness, and the primary paradigms developed to address these challenges.
+
+\subsection{Reinforcement Learning for Continuous Control}
+\textit{Reinforcement Learning (RL)} is a framework where an agent \textbf{learns} to make decisions by interacting with an environment \citep{sutton2018}. it then receives a \textit{scalar} reward based the quality of the \textit{action} it decides to take, and thereafter \textit{transitions} to a new state. The main goal of the agent is to learn a \textit{policy}, which is a mapping from \textit{states} to \textit{actions} (or a distribution over actions),  that maximises it's expected sum of rewards over time. An extension to RL is \textit{Deep Reinforcement Learning (DRL)}, in this framework the policy and associated value functions are represented using deep neural networks. This allows RL to handle problems with high-dimensional states and action spaces. It has shown success in many domains from games to robotics \citep{mnih2015human, levine2018learning, silver2017mastering} and is a strong extension for \textbf{\hyperref[def:ftc]{FTC}}.
+\noindent\\\\
+Classic RL is usually used with discrete action sets (board games, recommender systems, etc.), whereas robotics applications mainly involve \textit{continuous control} \citep{kober2013survey}. The state space (joint angles, velocities, sensor readings) and the action space (motor torques, joint positions) are real-valued variables. These real-valued variables and high-dimensionality of data lead to an infinite number of possible actions the agent may take, prompting the need for meticulous algorithm design \citep{kober2013survey, recht2019tour}. A common approach to continuous control utilises an \textit{actor-critic} structure, in which an 'actor' network will learn the policy and the 'critic' network will learn to evaluate state-action pairs. Additional algorithms commonly used in this domain, also relevant to the works discussed here, include: Proximal Policy Optimization (\hyperref[def:ppo]{PPO}) \citep{schulman2017proximal, liu2023saving, pham2024adaptive}, Soft Actor-Critic (\hyperref[def:sac]{SAC}) \citep{haarnoja2018soft}, and Twin-Delayed Deep Deterministic Policy Gradient (TD3) \citep{fujimoto2018addressing, jia2023robust}.
+
+\subsection{The Need for Robustness and Fault Tolerance}
+Robots trained in simulation which are then deployed to the real world, sooner or later encounter conditions that differ from their training environment. They may face: component degradation, sensor noise and hardware failures \citep{liu2023saving, pham2024adaptive}. This fact directly contributes to the need for control policies that are \textbf{robust} - able to maintain acceptable performance despite uncertainty or variations in the system's dynamics, observations, actions, or the environment itself \citep{pinto2017robust, glossop2022characterising}. We can generalise this to unseen conditions and resilience against disturbances  \citep{zhou1998essentials}. \textit{Fault-Tolerant Control (FTC)}, defined as the ability of a system to continue operation, with varying performance, under faulty conditions \citep[as cited by][]{ahmed2020fault, blanke1997}. The difference lies where traditional FTC methods use explicit fault detection, diagnosis and accommodation steps \citep{ahmed2020fault, zhang2008bibliographical}, we aim to achieve fault tolerance implicitly with a learning-based approach which has a resilient policy. The types of failures this review will be dealing with are actuator malfunctions (joint locking) \citep{liu2023saving}, intermittent failures \citep{pham2024adaptive}, limb damage or loss \citep{cully2015robots, chatzilygeroudis2018reset, bongard2006resilient}, gradual degradation of components \citep{ahmed2020fault}, as well as sensor noise and external disturbances \citep{glossop2022characterising, pinto2017robust}.
+
+\subsection{Simulation-Based Learning and the Sim-to-Real Gap}
+Training directly on physical robots brings rise to multiple challenges such as, it can be very expensive, time consuming and potentially unsafe \citep{kober2013survey}. This is why DRL for robotics relies on physics-based simulation environments (MuJoco, Isaac Gym) \citep{todorov2012mujoco,makoviychuk2021isaac}. These simulators allow for rapid and safe development. However, another challenge arises, which is the \textit{sim-to-real gap}: the unavoidable discrepancies between the simulated physics and the complexities of the real world \citep{zhao2020sim}. These discrepancies come from dynamics which have not been accounted for (e.g., motor backlash, flexibility), sensor noise characteristics, or actuation delays \citep{peng2018sim} or inaccurate system identification (e.g., friction, mass). Therefore, policies that are trained only in simulation perform poorly or fail entirely on physical hardware \citep{pinto2017robust, rajeswaran2016epopt}. Bridging this gap is a primary focus for developing robust learning techniques, such as Domain Randomization (DR), that trains policies capable of tolerating these modelling errors and environmental variations upon transfer.
+\subsection{Key Robustness Paradigms: An Overview}
+Several paradigms, which form the basis of the approaches discussed in Section~\ref{sec:approaches}, are commonly used to implement RL policies with robustness:
+\begin{itemize}
+    \item \textbf{Domain Randomization (DR):} A technique primarily aimed at improving sim-to-real transfer and generalization by intentionally randomizing parameters of the \textit{simulation} environment during training \citep{tobin2017domain}. The randomisation parameters may be the intentional injection of: varying dynamic parameters such as mass, friction and damping \citep{peng2018sim, rajeswaran2016epopt}, sensor noise, delays and crucially for this review, simulated hardware faults and reduced actuator effectiveness \citep{liu2023saving}. By injecting these faults and variations during simulation, the policy is encouraged to learn solutions that are robust to these variations, therefore generalizing better to the real world (for sim-to-real transfer) and specific failure conditions (limb dropout).
+    \item \textbf{Adversarial Training:} This involves two entities: $1)$ our primary RL agent -protagonist and $2)$ an adaptive adversary. In Adversarial Training the goal of the adaptive adversary is to hinder the protagonist's performance. It does this by learning forces to apply to the protagonist that optimally destabilize protagonist \citep{pinto2017robust} or directly perturb the protagonist's actions \citep{tessler2019action}. This paradigm then forces the protagonist to learn policies that are robust to worst-case scenarios (applied by the adversary), which in turn effectively models uncertainty and potential disruptions as an opponent.
+    \item \textbf{Online Adaptation / Recovery:} This subset of methods allow the robot to adjust its behaviour \textit{after} damage or unexpected changes occur during its deployment. Repertoire-based methods which use Quaility-Diversity (QD) algorithms such as MAP-Elites \citep{mouret2015illuminating} to generate a wide subset of skills offline, which are then selected or adapted online using techniques like Bayesian Optimization or MCTS \citep{cully2015robots, chatzilygeroudis2018reset, allard2023online} fall under this subset of methods. Other approaches use online RL updates to adapt directly \citep{pham2024adaptive} or use self-modeling to infer the robot's changed state \citep{bongard2006resilient}.
+    \item \textbf{Policy Regularization:} This approach aims to achieve robustness by directly modifying the objective function associated with the RL algorithm, to promote certain policy characteristics. Of these characteristics we have smoothness (penalises large action changes for small state changes), with the aim of potentially making the policy less sensitive to state changes or noise \citep{shen2020deep}
+\end{itemize}
+Understanding these basic concepts and strategies used helps us understand - in detail, the specific methodologies used to create robust and fault-tolerant control policies.
+% --- End of Background Section ---
+
+% --- Start of Combined Approaches Section ---
+\section{Approaches to Learning Robust Control Policies}
+\label{sec:approaches} % Add label
+
+Different fundamental strategies are involved in achieving robustness in RL policies. How we achieve the robustness in these policies, has a significant impact on our training requirements and the types of failures it can handle. We can categorise these approaches based on whether they build robustness \textit{proactively} - during a training-based simulation phase or are \textit{reactive} - adapt after a failure occurs during deployment.
+\subsection{Proactive Training for Robustness}
+Proactive approaches aim to learn a single control policy, usually with Deep Reinforcement Learning (DRL), that is robust to a range of variations or failures that is knows of before the robot is deployed.
+
+\subsubsection{Domain Randomization and Ensemble Training}
+A dominant proactive strategy is \textbf{Domain Randomization (DR)}, which is crucial for fault tolerance. The randomization is extended to include simulated hardware failures. \citet{liu2023saving} demonstrates this well by randomizing joint-locking failures (which joint, when, and severity) during \hyperref[def:ppo]{PPO} training within a teacher-student framework, achieving zero-shot transfer of a fault-tolerant locomotion policy for a quadruped. Similarly, \citet{jia2023robust} trained a \hyperref[def:td3]{TD3} agent for launch vehicle control while incorporating random thrust drops in the actuators during training episodes. \\\\
+\textbf{Ensemble Training} a related concept to \textit{Domain Randomisation}. In \textit{Ensemble Training} instead of just randomising the parameters, the RL agent (e.g. using \hyperref[def:trpo] {TRPO}) is trained over an explicitly defined distribution or ensemble of simulator models. \citet{rajeswaran2016epopt} further betters robustness in this setting by applying adversarial sampling (optimizing for Conditional Value at Risk), by focusing on policy updates on the simulated models where the current policy performs worst. Training policies to be robust against simulated limb dropout is a direct application of these DR principles.
+
+\subsubsection{Adversarial Training}
+\citet{tessler2019action} adapt this idea to action uncertainty, developing Action Robust RL (using variants of \hyperref[def:ddpg]{DDPG}) where the adversary learns to optimally perturb or replace the protagonist's intended actions. These methods directly model uncertainty or potential failures as an intelligent adversary to cause the protagonist to learn robust policies.
+
+\subsubsection{Policy Regularization}
+\citet{shen2020deep} proposed Smooth Regularized Reinforcement Learning (\hyperref[def:srl]{SR²L}), which adds a regularisation term to standard DRL algorithms (like \hyperref[def:trpo]{TRPO} or \hyperref[def:ddpg]{DDPG}). This term penalizes the policy for having large output changes for small input state changes. By making sure our policy is smooth, we can create policies less sensitive to sensor noise or small state changes, which lead to overall stability and robustness.
+
+\subsection{Reactive Adaptation and Recovery Methods}
+Reactive methods differ from proactive training by enabling the robot to adapt its behaviour online, \textit{after} some sort of damage has occurred or its environment has changed unexpectedly.
+
+\subsubsection{Repertoire-Based Adaptation}
+A common approach uses pre-trained behavior libraries created offline with Quality-Diversity (\hyperref[def:qd]{QD}) methods such as \hyperref[def:mapelites]{MAP-Elites}. In the Intelligent Trial-and-Error (\hyperref[def:ite]{ITE}) algorithm \citep{cully2015robots}, an exhaustive map of behaviours from the \textit{intact} robot is generated in simulation. When damage occurs, Bayesian Optimization uses a Gaussian Process (GP) model—continuously refined through real-world testing—to quickly search the pre-trained behavior library to find a compensatory strategy.  Reset-Free Trial-and-Error (\hyperref[def:rte]{RTE})  \citet{chatzilygeroudis2018reset} builds on this, using Monte Carlo Tree Search (\hyperref[def:mcts]{MCTS}) for online planning with the learned GP model and allows reset-free operation (not needing to reset the robot to its original state after each episode).
+
+\subsubsection{Direct Reinforcement Learning Adaptation}
+Other approaches use RL more directly for online adaptation. \citet{pham2024adaptive} frames joint failure in manipulators as a Partially Observable Markov Decision Process (\hyperref[def:pomdp]{POMDP}) and train a \hyperref[def:ppo]{PPO} agent to learn a policy that can work out the joint's current state from observations and compensate during task execution. \citet{ahmed2020fault} tackels gradual degradation by combining online \hyperref[def:ppo]{PPO} updates with offline training on a frequently updated data-driven model of the system, allowing the policy to keep track of slow changes.
+
+\subsection{Comparison of Proactive and Reactive Paradigms}
+The choice between proactive training and reactive adaptation involves significant trade-offs.
+
+\textbf{Proactive methods} (DR, Adversarial Training, Regularization) focus the computational effort offline to create a single policy with the intention of it being robust upon deployment.
+\begin{itemize}
+    \item \textit{Advantages:} Can react instantly to failures within their trained distribution, potentially may be simpler to deploy..
+    \item \textit{Disadvantages:} Require much more simulation covering all potential failures, that we want it to be robust to, may struggle with truly novel failures not accounted for in training, risk of learning overly conservative policies and the performance depends heavily on the quality of the simulation and randomization strategy employed.
+\end{itemize}
+
+\textbf{Reactive methods} (Repertoire-based, Online RL Adaptation) focus on algorithms that work with adaptation during deployment.
+\begin{itemize}
+    \item \textit{Advantages:} Has the potential to handle novel or unforeseen failures, and can fine-tune behaviour to the specific damage experienced.
+    \item \textit{Disadvantages:} Adaptation takes time online (not instantaneous), performance depends on the speed and success of the adaptation process, may require significant online computation, reset-free learning/adaptation can be difficult to implement.
+\end{itemize}
+
+% Optional: Insert Table summarizing trade-offs here if desired
+% E.g., using a structure similar to the one discussed previously.
+\begin{table}[h]
+ \centering
+ \caption{Comparison of Robustness Paradigms}
+ \begin{tabular}{l|p{5cm}|p{5cm}}
+ \hline
+ \textbf{Feature} & \textbf{Learning Single Robust Policy (Proactive)} & \textbf{Learning to Adapt Online (Reactive)} \\
+ \hline \hline \vspace{0.2cm}
+ Reaction Speed & Potentially Instant & Requires Online Time \\
+ \vspace{0.2cm}
+ Handling Novelty & Limited by Training Distr. & Potentially High \\
+ \vspace{0.2cm}
+ Training Effort & High (Simulate Failures) & Lower (Base Policy) \\
+ \vspace{0.2cm}
+ Deployment Comp. & Low (Execute Policy) & High (Online Learning/Planning) \\
+ \vspace{0.2cm} % Added vertical space for better separation
+ Robustness Type & Innate / Generalization & Adaptive / Recovery \\
+ \hline
+ \end{tabular}
+ \label{tab:paradigm_comparison}
+\end{table}
+\noindent % Ensures following text starts on a new line if needed
+The selection of an appropriate strategy depends on the specific application, the predictability of failures, the available computational resources (offline vs online), and the required speed.
+% --- End of Combined Approaches Section ---
+
+% --- Start of Evaluation Section ---
+\section{Evaluation of Policy Robustness}
+\label{sec:evaluation} % Add label
+
+Evaluating the effectiveness and robustness of learned control policies, under potential hardware failures, is crucial to assess the progress and understanding limitations. However, comparing results across different studies presents challenges due to variations in tasks, metrics, failure modes, and evaluation protocols \citep{glossop2022characterising}. This section discusses the common evaluation approaches and metrics found in the reviewed literature.
+\subsection{Direct Performance Metrics}
+The main goal of evaluation is measuring the policy's ability to successfully perform its intended task under specific conditions. This is often measured by the cumulative reward achieved during an episode, which implicitly captures the task’s objectives \citep{pinto2017robust, shen2020deep}. For locomotion tasks, metrics used are: average forward velocity, measures of stability (such as fall rate or torso orientation), and survival time (how long the agent operates before failing), particularly \textit{after} a failure is introduced \citep{liu2023saving}. For goal-oriented tasks like manipulation or navigation, common metrics are the task success rate (e.g., percentage of successful drawer openings or maze completions) and the average time or number of actions required to complete the task \citep{pham2024adaptive, chatzilygeroudis2018reset, allard2023online}.
+\subsection{Measuring Robustness and Generalization}
+Apart from direct performance metrics, specific evaluations focus on robustness. A common method evaluates  policies trained under certain conditions against a range of \textit{unseen} variations at test time. This includes varying physical parameters of the robot or environment, such as mass or friction coefficients, and observing performance degradation \citep{rajeswaran2016epopt, pinto2017robust, tessler2019action}. Another approach,  employed by \citet{glossop2022characterising}, involves injecting various types of disturbances (e.g., noise or forces applied to states) with increasing magnitude at test time and then measuring the drop in performance.\noindent
+\\\\
+For methods focused on adaptation or recovery after failure, key evalution metrics include the \textit{time} or \textit{number of trials} required for the robot to regain a set level of performance after soem sort of damage occurs \citep{cully2015robots, chatzilygeroudis2018reset}.
+
+
+% LEAVE FOR PROPOSAL
+% \subsection{Handling Policy Failures and Constraints in Evaluation}
+% Evaluating robustness inherently involves scenarios where policies fail (e.g., the robot falls, collides, becomes unstable, or cannot complete the task). How these failures are treated within the evaluation process is important. Some studies use metrics like survival time or task success rate, which directly quantify the policy's ability to avoid or overcome catastrophic failure \citep{liu2023saving, pham2024adaptive, allard2023online}. Others terminate episodes upon critical failure, implicitly penalizing the policy through a lower cumulative reward or shorter operational time. For adaptation-focused methods, the number of attempts required before achieving success under damage is often reported \citep{chatzilygeroudis2018reset, cully2015robots}. Physical hardware testing introduces inherent safety constraints, often limiting the types or severity of failures that can be practically and safely induced \citep[cf.][]{liu2023saving}.
+
+
+% LEAVE FOR PROPOSAL
+% \subsection{Comparability and Evaluation Challenges}
+% Directly comparing robustness results across different studies remains a significant challenge. As highlighted by benchmarking efforts \citep{glossop2022characterising}, researchers employ diverse robotic platforms (quadrupeds, manipulators, wheeled robots, abstract models), simulation environments (MuJoCo, Isaac Gym, PyBullet, custom), tasks (locomotion, manipulation, balancing), failure modes (joint locking, degradation, external forces, action noise, limb loss), disturbance injection methodologies, and performance metrics. For instance, evaluating robustness to 'limb dropout' lacks a standard protocol; different works might simulate it as zero torque, joint locking, or physical removal, each potentially leading to different outcomes \citep[cf.][]{liu2023saving, cully2015robots, bongard2006resilient}. Furthermore, the sim-to-real gap implies that even strong performance under randomized or adversarial conditions in simulation does not guarantee equivalent robustness on physical hardware without explicit validation \citep{liu2023saving, rajeswaran2017epopt}. The development and adoption of standardized benchmark suites, tasks, failure models (particularly for common hardware issues like actuator malfunctions), and evaluation metrics would greatly benefit the field by enabling more rigorous and meaningful comparisons between different approaches to learning robust and fault-tolerant control policies.
+
+% --- End of Evaluation Section ---
+% --- Start of Conclusion Section ---
+\section{Conclusion}
+\label{sec:conclusion} % Add label
+
+This review has surveyed work with the aim of  developing robust control policies for robots using learning-based methods, with a primary focus on strategies relevant to handling hardware failures, such as actuator malfunctions and sensor noise. Considerable progress has been made, with strategies such as \textit{proactive} methods like Domain Randomization and Adversarial Training that build robustness during the learning phase, to \textit{reactive} methods which employ online adaptation after a failure occurs, alongside techniques that regularize policies for implicit stability.\\\\
+\noindent
+Despite these advancements, several challenges and gaps remain in the development of truly robust robotic systems which are capable of reliable long-term autonomous operation. The key areas that remain a challenge are and not limited to:\begin{itemize}
+    \item \textbf{Handling random hardware failures:} While robustness to parameter variations, noise, or gradual degradation is increasingly being mitigated, training policies to handle sudden, significant hardware changes like complete limb or actuator failure (limb dropout) remains a incomplete area.
+    \item \textbf{Reliable Sim-to-Real Transfer:} Although techniques like Domain Randomization targeting specific failure modes show significant improvement \citep{liu2023saving}, achieving consistent and reliable zero-shot transfer of policies trained under simulated failure conditions to physical hardware remains an issue.
+    \item \textbf{Standard Comparison of Robustness Strategies:} There is a lack of direct, comparisons between proactive training strategies (e.g., failure-specific DR, adversarial methods) and reactive adaptation strategies (e.g., repertoire-based methods) for handling common hardware failures under comparable conditions, making it difficult to determine the best approach for different scenenarios.
+    % LEAVE BELOW FOR PROPOSAL
+    % \item \textbf{Standardized Evaluation Protocols:} The field currently lacks widely adopted benchmarks, standardized failure simulation methods (especially for actuators), and unified metrics for rigorously evaluating and comparing the fault tolerance and robustness of different learning-based control approaches across varied robotic platforms and tasks, hindering objective assessment of progress \citep[cf.][]{glossop2022characterising}.
+\end{itemize}
+\noindent
+Therefore, while the reviewed methodologies offer promising methods towards more robust robots, the goal of creating controllers that reliably continue to function in the face of common hardware failures like limb dropout has not yet been fully achieved. Future work focusing on addressing the identified gaps—particularly through improved simulation of realistic failures during training, enhanced sim-to-real transfer techniques for fault-tolerant policies and the systematic comparisons between proactive and reactive paradigms—will be necessary for the advancement of deployment of resilient autonomous systems.
+% --- End of Conclusion Section ---
+\newpage % Start Appendix on a new page
+
+% --- APPENDIX ---
+\appendix % Starts the appendix section(s)
+\section{Algorithm and Concept Definitions}
+\label{app:definitions}
+This appendix provides brief definitions for key reinforcement learning algorithms and concepts mentioned in the review.
+
+% --- Definition for PPO ---
+\subsection{Proximal Policy Optimization (PPO)}
+\label{def:ppo}
+
+Proximal Policy Optimization (PPO) (Schulman et al., 2017) is a on-policy reinforcement learning algorithm for continuous control. As an actor-critic method, it enhances training stability over standard policy gradients by using a clipped objective function that limits policy update sizes. This prevents large, unstable changes while maintaining reliable convergence. PPO's balance of sample efficiency and straightforward implementation has made it widely adopted in robotics (Liu et al., 2023; Pham et al., 2024).
+% --- Definition for TD3 ---
+\subsection{Twin-Delayed Deep Deterministic Policy Gradient (TD3)}
+\label{def:td3}
+
+Twin-Delayed Deep Deterministic Policy Gradient (TD3) \citep{fujimoto2018addressing} is an off-policy, actor-critic algorithm designed to improve upon the Deep Deterministic Policy Gradient (DDPG) algorithm for continuous control. Its key innovations address the common problem of Q-value overestimation in critic networks. TD3 employs three main techniques:
+(1) \textit{Clipped Double Q-Learning:} It learns two independent critic networks (the 'twins') and uses the minimum of their Q-value estimates to form the target for updates, reducing upward bias.
+(2) \textit{Delayed Policy Updates:} The actor network is updated less frequently than the critic networks, allowing the critic estimates to stabilize first.
+(3) \textit{Target Policy Smoothing:} Adds noise to the target action during critic updates, smoothing the value estimate around the target policy's actions.
+These modifications lead to significantly improved stability and performance compared to DDPG, particularly in complex continuous control tasks \citep[e.g.,][]{jia2023robust}.
+
+% --- Definition for TRPO ---
+\subsection{Trust Region Policy Optimization (TRPO)}
+\label{def:trpo} % Unique label for this definition
+
+Trust Region Policy Optimization (TRPO) \citep{schulman2015trust} is an on-policy reinforcement learning algorithm we the aim of achieving stable and monotonic policy improvement. It addresses a key challenge in policy gradient methods: large, poorly chosen updates can lead to catastrophic performance collapse. TRPO tackles this by constraining the size of policy updates at each iteration, ensuring that the new policy does not deviate "too far" from the old one. This constraint is typically enforced by limiting the Kullback–Leibler (KL) divergence between the action distributions of the old and new policies within a "trust region". While computationally more complex than simpler policy gradient methods (often requiring approximations like the conjugate gradient method to solve the constrained optimization problem), TRPO served as a direct extension to the PPO algorithm \citep{pinto2017robust, rajeswaran2016epopt}.
+% --- Definition for DDPG ---
+\subsection{Deep Deterministic Policy Gradient (DDPG)}
+\label{def:ddpg} % Unique label
+
+Deep Deterministic Policy Gradient (DDPG) \citep{lillicrap2015continuous} is an off-policy, actor-critic algorithm designed for continuous control tasks. It adapts ideas from Deep Q-Networks (DQN) to continuous action spaces by learning a deterministic actor (policy) network that outputs a specific action, and a critic (Q-value) network that evaluates state-action pairs. To improve stability, DDPG uses target networks (slowly updated copies of the actor and critic) and experience replay buffers. DDPG can sometimes suffer from Q-value overestimation and sensitivity to hyperparameters, issues addressed by its successor, TD3 \citep{shen2020deep}.
+
+% --- Definition for SR²L ---
+\subsection{Smooth Regularized Reinforcement Learning (SR²L)}
+\label{def:srl} % Unique label
+
+Smooth Regularized Reinforcement Learning (SR²L) \citep{shen2020deep} is a training framework designed to improve the sample efficiency, stability, and robustness of DRL policies by explicitly promoting smoothness. It achieves this by adding a regularization term to the standard RL objective (applicable to algorithms like TRPO or DDPG). This term penalizes large changes in the policy's output (actions or Q-values) when small perturbations are applied to the input state. By encouraging the learned policy or value function to be locally Lipschitz continuous, SR²L aims to make the policy less sensitive to state measurement errors or minor environmental variations.
+
+% --- Definition for QD ---
+\subsection{Quality-Diversity (QD)}
+\label{def:qd} % Unique label
+
+Quality-Diversity (QD) refers to a class of optimization algorithms that aim to find a large collection of solutions that are both high-performing (quality) and significantly different from each other across key behavioural features (diversity), rather than converging to a single optimal solution \citep{pugh2016quality}. QD algorithms typically maintain an archive or map of solutions indexed by their observed behaviours. This paradigm is useful in robotics for generating rich behavioural repertoires that can provide robustness through redundancy or be used as building blocks for complex tasks or adaptation \citep[e.g.,][]{cully2015robots, allard2023online}.
+
+% --- Definition for MAP-Elites ---
+\subsection{MAP-Elites (Multi-dimensional Archive of Phenotypic Elites)}
+\label{def:mapelites} % Unique label for mapelites
+
+MAP-Elites \citep{mouret2015illuminating} is a Quality-Diversity (QD) algorithm. It discretizes the space of possible solution behaviours (the "feature space" or "behaviour space") into a grid or archive. Through an evolutionary process (typically involving mutation and selection), MAP-Elites attempts to find the highest-performing solution (an "elite") for each cell in the behaviour grid. This results in an archive containing a wide variety of high-quality solutions covering the reachable behaviour space, which is often used to generate diverse behavioural repertoires for robot adaptation \citep{cully2015robots, chatzilygeroudis2018reset, allard2023online}.
+
+% --- Definition for ITE ---
+\subsection{Intelligent Trial and Error (ITE)}
+\label{def:ite} % Unique label for ite
+
+Intelligent Trial and Error (ITE) \citep{cully2015robots} is an algorithm designed for rapid robot adaptation to physical damage. It first uses MAP-Elites offline in simulation to create a diverse behaviour-performance map (repertoire) for the \textit{intact} robot. When the robot is damaged, it leverages this map as a prior for a Gaussian Process (GP) model. It then uses Bayesian Optimization online to intelligently select behaviours from the repertoire to test on the physical robot, balancing exploration and exploitation to quickly find a compensatory behaviour that works despite the damage, typically within minutes.
+
+% --- Definition for RTE ---
+\subsection{Reset-Free Trial and Error (RTE)}
+\label{def:rte} % Unique label for rte
+
+Reset-Free Trial and Error (RTE) \citep{chatzilygeroudis2018reset} builds upon the ITE algorithm, adapting it for scenarios where resetting the robot to the same initial state after each trial is infeasible (common in mobile robotics). Like ITE, it uses an offline MAP-Elites repertoire and online GP learning to model the damaged robot's behaviour. However, it replaces Bayesian Optimization with Monte Carlo Tree Search (MCTS) for online planning and action selection, allowing the robot to continuously learn and plan towards a goal (like waypoint navigation) without needing resets between short action executions (episodes).
+
+% --- Definition for MCTS ---
+\subsection{Monte Carlo Tree Search (MCTS)}
+\label{def:mcts} % Unique label for mcts
+
+Monte Carlo Tree Search (MCTS) is a heuristic search algorithm for finding optimal decisions in a given domain, often modeled as a Markov Decision Process \citep{coulom2006efficient, kocsis2006bandit}. It incrementally builds a search tree using repeated random sampling (Monte Carlo simulations) from the current state. MCTS balances exploration (trying less-visited paths) and exploitation (focusing on paths that have yielded high rewards) using criteria like the Upper Confidence Bound for Trees (UCT). It is widely used in game playing and planning under uncertainty, including in robotics for action selection in methods like RTE \citep{chatzilygeroudis2018reset}.
+
+% --- Definition for POMDP ---
+\subsection{Partially Observable Markov Decision Process (POMDP)}
+\label{def:pomdp} % Unique label for pomdp
+
+A Partially Observable Markov Decision Process (POMDP) is a generalization of an MDP used when the agent cannot directly observe the underlying state of the environment \citep{littman1995, monahan1982state}. Instead, the agent receives potentially noisy or incomplete \textit{observations} that depend probabilistically on the true state. To make decisions, the agent typically maintains a \textit{belief state}—a probability distribution over the possible true states—which it updates based on its actions and received observations using techniques like Bayesian filtering. Solving POMDPs is generally much harder than solving MDPs due to the need to reason under state uncertainty, but they provide a formal framework for planning in realistic scenarios with imperfect sensing \citep[e.g., applied to joint failure uncertainty in][]{pham2024adaptive}.
+
+\subsection{Fault-Tolerant Control (FTC)}
+\label{def:ftc} % Unique label for ftc
+
+Fault-Tolerant Control (FTC) refers to the ability of a control system to maintain stability and acceptable (though potentially degraded) performance, preventing catastrophic failure, despite the occurrence of faults within its components (e.g., sensors, actuators, or plant dynamics) \citep{blanke1997, zhang2008bibliographical}. Traditional FTC systems are often categorized as passive (using fixed robust controllers designed a priori) or active (employing online fault detection and diagnosis (FDD) mechanisms to explicitly identify faults and then reconfigure or adapt the controller accordingly) \citep{ahmed2020fault}. Many learning-based approaches aim to achieve fault tolerance implicitly through adaptation or inherent policy robustness, often bypassing the need for explicit FDD modules.
+
+
+% --- Definition for SAC ---
+\subsection{Soft Actor-Critic (SAC)}
+\label{def:sac} % Unique label for sac
+
+Soft Actor-Critic (SAC) \citep{haarnoja2018soft} is an off-policy, actor-critic reinforcement learning algorithm designed for continuous control tasks, known for its high sample efficiency and stability. A key feature of SAC is its objective function, which incorporates an \textit{entropy maximization} term alongside the standard expected reward. This encourages the policy to act as randomly (i.e., with high entropy) as possible while still successfully completing the task. This entropy bonus promotes exploration, helps prevent premature convergence to suboptimal behaviours, and can contribute to the policy's robustness. Like other off-policy methods, SAC typically utilizes an experience replay buffer. \citep[e.g., benchmarked in][]{glossop2022characterising}.
+
+% --- End of Specific Definition ---
+
+% --- BIBLIOGRAPHY ---
+\newpage % Start bibliography on a new page
+\bibliographystyle{unsrtnat}
+\bibliography{references.bib} % Assumes your bibliography file is references.bib
+
+\end{document}

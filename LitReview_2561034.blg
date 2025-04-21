@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: LitReview_2561034.aux
+The style file: unsrtnat.bst
+Database file #1: references.bib
+Warning--empty journal in sutton2018
+You've used 38 entries,
+            2481 wiz_defined-function locations,
+            777 strings with 12258 characters,
+and the built_in function-call counts, 17966 in all, are:
+= -- 1515
+> -- 1050
+< -- 23
++ -- 390
+- -- 314
+* -- 1414
+:= -- 2787
+add.period$ -- 128
+call.type$ -- 38
+change.case$ -- 75
+chr.to.int$ -- 38
+cite$ -- 39
+duplicate$ -- 897
+empty$ -- 1551
+format.name$ -- 362
+if$ -- 3902
+int.to.chr$ -- 1
+int.to.str$ -- 39
+missing$ -- 39
+newline$ -- 198
+num.names$ -- 114
+pop$ -- 358
+preamble$ -- 1
+purify$ -- 38
+quote$ -- 0
+skip$ -- 569
+stack$ -- 0
+substring$ -- 926
+swap$ -- 229
+text.length$ -- 15
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 263
+warning$ -- 1
+while$ -- 146
+width$ -- 0
+write$ -- 506
+(There was 1 warning)
