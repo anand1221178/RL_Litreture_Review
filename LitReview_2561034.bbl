@@ -7,8 +7,7 @@
 
 \bibitem[Liu et~al.(2022)Liu, Zhang, Yin, and See]{liu2023saving}
 Dikai Liu, Tianwei Zhang, Jianxiong Yin, and Simon See.
-\newblock Saving the limping: Fault-tolerant quadruped locomotion via
-  reinforcement learning.
+\newblock Saving the limping: Fault-tolerant quadruped locomotion via reinforcement learning.
 \newblock \emph{arXiv preprint arXiv:2210.00474}, 2022.
 
 \bibitem[Bongard et~al.(2006)Bongard, Zykov, and Lipson]{bongard2006resilient}
@@ -18,28 +17,20 @@ Josh Bongard, Victor Zykov, and Hod Lipson.
 
 \bibitem[Pham et~al.(2024)Pham, Aikins, Truong, and Nguyen]{pham2024adaptive}
 Tan-Hanh Pham, Godwyll Aikins, Tri Truong, and Kim-Doang Nguyen.
-\newblock Adaptive compensation for robotic joint failures using partially
-  observable reinforcement learning.
+\newblock Adaptive compensation for robotic joint failures using partially observable reinforcement learning.
 \newblock \emph{Algorithms}, 17\penalty0 (10):\penalty0 436, 2024.
 
-\bibitem[Blanke et~al.(1997)Blanke, Izadi-Zamanabadi, B{\o}gh, and
-  Lunau]{blanke1997}
-Mogens Blanke, Roozbeh Izadi-Zamanabadi, S{\o}ren~A B{\o}gh, and Charlotte~P
-  Lunau.
+\bibitem[Blanke et~al.(1997)Blanke, Izadi-Zamanabadi, B{\o}gh, and Lunau]{blanke1997}
+Mogens Blanke, Roozbeh Izadi-Zamanabadi, S{\o}ren~A B{\o}gh, and Charlotte~P Lunau.
 \newblock Fault-tolerant control systems—a holistic view.
-\newblock \emph{Control Engineering Practice}, 5\penalty0 (5):\penalty0
-  693--702, 1997.
+\newblock \emph{Control Engineering Practice}, 5\penalty0 (5):\penalty0 693--702, 1997.
 
-\bibitem[Ahmed et~al.(2020)Ahmed, Qui{\~n}ones-Grueiro, and
-  Biswas]{ahmed2020fault}
+\bibitem[Ahmed et~al.(2020)Ahmed, Qui{\~n}ones-Grueiro, and Biswas]{ahmed2020fault}
 Ibrahim Ahmed, Marcos Qui{\~n}ones-Grueiro, and Gautam Biswas.
-\newblock Fault-tolerant control of degrading systems with on-policy
-  reinforcement learning.
-\newblock \emph{IFAC-PapersOnLine}, 53\penalty0 (2):\penalty0 13733--13738,
-  2020.
+\newblock Fault-tolerant control of degrading systems with on-policy reinforcement learning.
+\newblock \emph{IFAC-PapersOnLine}, 53\penalty0 (2):\penalty0 13733--13738, 2020.
 
-\bibitem[Rajeswaran et~al.(2016)Rajeswaran, Ghotra, Ravindran, and
-  Levine]{rajeswaran2016epopt}
+\bibitem[Rajeswaran et~al.(2016)Rajeswaran, Ghotra, Ravindran, and Levine]{rajeswaran2016epopt}
 Aravind Rajeswaran, Sarvjeet Ghotra, Balaraman Ravindran, and Sergey Levine.
 \newblock Epopt: Learning robust neural network policies using model ensembles.
 \newblock \emph{arXiv preprint arXiv:1610.01283}, 2016.
@@ -49,8 +40,7 @@ Antoine Cully, Jeff Clune, Danesh Tarapore, and Jean-Baptiste Mouret.
 \newblock Robots that can adapt like animals.
 \newblock \emph{Nature}, 521\penalty0 (7553):\penalty0 503--507, 2015.
 
-\bibitem[Chatzilygeroudis et~al.(2018)Chatzilygeroudis, Vassiliades, and
-  Mouret]{chatzilygeroudis2018reset}
+\bibitem[Chatzilygeroudis et~al.(2018)Chatzilygeroudis, Vassiliades, and Mouret]{chatzilygeroudis2018reset}
 Konstantinos Chatzilygeroudis, Vassilis Vassiliades, and Jean-Baptiste Mouret.
 \newblock Reset-free trial-and-error learning for robot damage recovery.
 \newblock \emph{Robotics and Autonomous Systems}, 100:\penalty0 236--250, 2018.
@@ -58,92 +48,66 @@ Konstantinos Chatzilygeroudis, Vassilis Vassiliades, and Jean-Baptiste Mouret.
 \bibitem[Shen et~al.(2020)Shen, Li, Jiang, Wang, and Zhao]{shen2020deep}
 Qianli Shen, Yan Li, Haoming Jiang, Zhaoran Wang, and Tuo Zhao.
 \newblock Deep reinforcement learning with robust and smooth policy.
-\newblock In \emph{International Conference on Machine Learning}, pages
-  8707--8718. PMLR, 2020.
+\newblock In \emph{International Conference on Machine Learning}, pages 8707--8718. PMLR, 2020.
 
 \bibitem[Andrew and Richard~S(2018)]{sutton2018}
 Barto Andrew and Sutton Richard~S.
 \newblock Reinforcement learning: an introduction.
 \newblock 2018.
 
-\bibitem[Mnih et~al.(2015)Mnih, Kavukcuoglu, Silver, Rusu, Veness, Bellemare,
-  Graves, Riedmiller, Fidjeland, Ostrovski, et~al.]{mnih2015human}
-Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Andrei~A Rusu, Joel Veness,
-  Marc~G Bellemare, Alex Graves, Martin Riedmiller, Andreas~K Fidjeland, Georg
-  Ostrovski, et~al.
+\bibitem[Mnih et~al.(2015)Mnih, Kavukcuoglu, Silver, Rusu, Veness, Bellemare, Graves, Riedmiller, Fidjeland, Ostrovski, et~al.]{mnih2015human}
+Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Andrei~A Rusu, Joel Veness, Marc~G Bellemare, Alex Graves, Martin Riedmiller, Andreas~K Fidjeland, Georg Ostrovski, et~al.
 \newblock Human-level control through deep reinforcement learning.
 \newblock \emph{nature}, 518\penalty0 (7540):\penalty0 529--533, 2015.
 
-\bibitem[Levine et~al.(2018)Levine, Pastor, Krizhevsky, Ibarz, and
-  Quillen]{levine2018learning}
-Sergey Levine, Peter Pastor, Alex Krizhevsky, Julian Ibarz, and Deirdre
-  Quillen.
-\newblock Learning hand-eye coordination for robotic grasping with deep
-  learning and large-scale data collection.
-\newblock \emph{The International journal of robotics research}, 37\penalty0
-  (4-5):\penalty0 421--436, 2018.
+\bibitem[Levine et~al.(2018)Levine, Pastor, Krizhevsky, Ibarz, and Quillen]{levine2018learning}
+Sergey Levine, Peter Pastor, Alex Krizhevsky, Julian Ibarz, and Deirdre Quillen.
+\newblock Learning hand-eye coordination for robotic grasping with deep learning and large-scale data collection.
+\newblock \emph{The International journal of robotics research}, 37\penalty0 (4-5):\penalty0 421--436, 2018.
 
-\bibitem[Silver et~al.(2017)Silver, Schrittwieser, Simonyan, Antonoglou, Huang,
-  Guez, Hubert, Baker, Lai, Bolton, et~al.]{silver2017mastering}
-David Silver, Julian Schrittwieser, Karen Simonyan, Ioannis Antonoglou, Aja
-  Huang, Arthur Guez, Thomas Hubert, Lucas Baker, Matthew Lai, Adrian Bolton,
-  et~al.
+\bibitem[Silver et~al.(2017)Silver, Schrittwieser, Simonyan, Antonoglou, Huang, Guez, Hubert, Baker, Lai, Bolton, et~al.]{silver2017mastering}
+David Silver, Julian Schrittwieser, Karen Simonyan, Ioannis Antonoglou, Aja Huang, Arthur Guez, Thomas Hubert, Lucas Baker, Matthew Lai, Adrian Bolton, et~al.
 \newblock Mastering the game of go without human knowledge.
 \newblock \emph{nature}, 550\penalty0 (7676):\penalty0 354--359, 2017.
 
 \bibitem[Kober et~al.(2013)Kober, Bagnell, and Peters]{kober2013survey}
 Jens Kober, J~Andrew Bagnell, and Jan Peters.
 \newblock Reinforcement learning in robotics: A survey.
-\newblock \emph{The International Journal of Robotics Research}, 32\penalty0
-  (11):\penalty0 1238--1274, 2013.
+\newblock \emph{The International Journal of Robotics Research}, 32\penalty0 (11):\penalty0 1238--1274, 2013.
 
 \bibitem[Recht(2019)]{recht2019tour}
 Benjamin Recht.
 \newblock A tour of reinforcement learning: The view from continuous control.
-\newblock \emph{Annual Review of Control, Robotics, and Autonomous Systems},
-  2\penalty0 (1):\penalty0 253--279, 2019.
+\newblock \emph{Annual Review of Control, Robotics, and Autonomous Systems}, 2\penalty0 (1):\penalty0 253--279, 2019.
 
-\bibitem[Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, and
-  Klimov]{schulman2017proximal}
+\bibitem[Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, and Klimov]{schulman2017proximal}
 John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov.
 \newblock Proximal policy optimization algorithms.
 \newblock \emph{arXiv preprint arXiv:1707.06347}, 2017.
 
-\bibitem[Haarnoja et~al.(2018)Haarnoja, Zhou, Abbeel, and
-  Levine]{haarnoja2018soft}
+\bibitem[Haarnoja et~al.(2018)Haarnoja, Zhou, Abbeel, and Levine]{haarnoja2018soft}
 Tuomas Haarnoja, Aurick Zhou, Pieter Abbeel, and Sergey Levine.
-\newblock Soft actor-critic: Off-policy maximum entropy deep reinforcement
-  learning with a stochastic actor.
-\newblock In \emph{International conference on machine learning}, pages
-  1861--1870. Pmlr, 2018.
+\newblock Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor.
+\newblock In \emph{International conference on machine learning}, pages 1861--1870. Pmlr, 2018.
 
-\bibitem[Fujimoto et~al.(2018)Fujimoto, Hoof, and
-  Meger]{fujimoto2018addressing}
+\bibitem[Fujimoto et~al.(2018)Fujimoto, Hoof, and Meger]{fujimoto2018addressing}
 Scott Fujimoto, Herke Hoof, and David Meger.
 \newblock Addressing function approximation error in actor-critic methods.
-\newblock In \emph{International conference on machine learning}, pages
-  1587--1596. PMLR, 2018.
+\newblock In \emph{International conference on machine learning}, pages 1587--1596. PMLR, 2018.
 
 \bibitem[Jia et~al.(2023)Jia, Liu, Wang, Gong, and Huang]{jia2023robust}
 Chenhui Jia, Xiaodong Liu, Zhaolei Wang, Qinghai Gong, and Xu~Huang.
-\newblock Robust attitude controller designation of launch vehicle under
-  actuator failure condition via deep reinforcement learning algorithm.
-\newblock In \emph{2023 35th Chinese Control and Decision Conference (CCDC)},
-  pages 3223--3228. IEEE, 2023.
+\newblock Robust attitude controller designation of launch vehicle under actuator failure condition via deep reinforcement learning algorithm.
+\newblock In \emph{2023 35th Chinese Control and Decision Conference (CCDC)}, pages 3223--3228. IEEE, 2023.
 
-\bibitem[Pinto et~al.(2017)Pinto, Davidson, Sukthankar, and
-  Gupta]{pinto2017robust}
+\bibitem[Pinto et~al.(2017)Pinto, Davidson, Sukthankar, and Gupta]{pinto2017robust}
 Lerrel Pinto, James Davidson, Rahul Sukthankar, and Abhinav Gupta.
 \newblock Robust adversarial reinforcement learning.
-\newblock In \emph{International conference on machine learning}, pages
-  2817--2826. PMLR, 2017.
+\newblock In \emph{International conference on machine learning}, pages 2817--2826. PMLR, 2017.
 
-\bibitem[Glossop et~al.(2022)Glossop, Panerati, Krishnan, Yuan, and
-  Schoellig]{glossop2022characterising}
-Catherine~R Glossop, Jacopo Panerati, Amrit Krishnan, Zhaocong Yuan, and
-  Angela~P Schoellig.
-\newblock Characterising the robustness of reinforcement learning for
-  continuous control using disturbance injection.
+\bibitem[Glossop et~al.(2022)Glossop, Panerati, Krishnan, Yuan, and Schoellig]{glossop2022characterising}
+Catherine~R Glossop, Jacopo Panerati, Amrit Krishnan, Zhaocong Yuan, and Angela~P Schoellig.
+\newblock Characterising the robustness of reinforcement learning for continuous control using disturbance injection.
 \newblock \emph{arXiv preprint arXiv:2210.15199}, 2022.
 
 \bibitem[Zhou and Doyle(1998)]{zhou1998essentials}
@@ -153,81 +117,56 @@ Kemin Zhou and John~Comstock Doyle.
 
 \bibitem[Zhang and Jiang(2008)]{zhang2008bibliographical}
 Youmin Zhang and Jin Jiang.
-\newblock Bibliographical review on reconfigurable fault-tolerant control
-  systems.
-\newblock \emph{Annual reviews in control}, 32\penalty0 (2):\penalty0 229--252,
-  2008.
+\newblock Bibliographical review on reconfigurable fault-tolerant control systems.
+\newblock \emph{Annual reviews in control}, 32\penalty0 (2):\penalty0 229--252, 2008.
 
 \bibitem[Todorov et~al.(2012)Todorov, Erez, and Tassa]{todorov2012mujoco}
 Emanuel Todorov, Tom Erez, and Yuval Tassa.
 \newblock Mujoco: A physics engine for model-based control.
-\newblock In \emph{2012 IEEE/RSJ international conference on intelligent robots
-  and systems}, pages 5026--5033. IEEE, 2012.
+\newblock In \emph{2012 IEEE/RSJ international conference on intelligent robots and systems}, pages 5026--5033. IEEE, 2012.
 
-\bibitem[Makoviychuk et~al.(2021)Makoviychuk, Wawrzyniak, Guo, Lu, Storey,
-  Macklin, Hoeller, Rudin, Allshire, Handa, et~al.]{makoviychuk2021isaac}
-Viktor Makoviychuk, Lukasz Wawrzyniak, Yunrong Guo, Michelle Lu, Kier Storey,
-  Miles Macklin, David Hoeller, Nikita Rudin, Arthur Allshire, Ankur Handa,
-  et~al.
-\newblock Isaac gym: High performance gpu-based physics simulation for robot
-  learning.
+\bibitem[Makoviychuk et~al.(2021)Makoviychuk, Wawrzyniak, Guo, Lu, Storey, Macklin, Hoeller, Rudin, Allshire, Handa, et~al.]{makoviychuk2021isaac}
+Viktor Makoviychuk, Lukasz Wawrzyniak, Yunrong Guo, Michelle Lu, Kier Storey, Miles Macklin, David Hoeller, Nikita Rudin, Arthur Allshire, Ankur Handa, et~al.
+\newblock Isaac gym: High performance gpu-based physics simulation for robot learning.
 \newblock \emph{arXiv preprint arXiv:2108.10470}, 2021.
 
 \bibitem[Zhao et~al.(2020)Zhao, Queralta, and Westerlund]{zhao2020sim}
 Wenshuai Zhao, Jorge~Pe{\~n}a Queralta, and Tomi Westerlund.
-\newblock Sim-to-real transfer in deep reinforcement learning for robotics: a
-  survey.
-\newblock In \emph{2020 IEEE symposium series on computational intelligence
-  (SSCI)}, pages 737--744. IEEE, 2020.
+\newblock Sim-to-real transfer in deep reinforcement learning for robotics: a survey.
+\newblock In \emph{2020 IEEE symposium series on computational intelligence (SSCI)}, pages 737--744. IEEE, 2020.
 
 \bibitem[Peng et~al.(2018)Peng, Andrychowicz, Zaremba, and Abbeel]{peng2018sim}
 Xue~Bin Peng, Marcin Andrychowicz, Wojciech Zaremba, and Pieter Abbeel.
 \newblock Sim-to-real transfer of robotic control with dynamics randomization.
-\newblock In \emph{2018 IEEE international conference on robotics and
-  automation (ICRA)}, pages 3803--3810. IEEE, 2018.
+\newblock In \emph{2018 IEEE international conference on robotics and automation (ICRA)}, pages 3803--3810. IEEE, 2018.
 
-\bibitem[Tobin et~al.(2017)Tobin, Fong, Ray, Schneider, Zaremba, and
-  Abbeel]{tobin2017domain}
-Josh Tobin, Rachel Fong, Alex Ray, Jonas Schneider, Wojciech Zaremba, and
-  Pieter Abbeel.
-\newblock Domain randomization for transferring deep neural networks from
-  simulation to the real world.
-\newblock In \emph{2017 IEEE/RSJ international conference on intelligent robots
-  and systems (IROS)}, pages 23--30. IEEE, 2017.
+\bibitem[Tobin et~al.(2017)Tobin, Fong, Ray, Schneider, Zaremba, and Abbeel]{tobin2017domain}
+Josh Tobin, Rachel Fong, Alex Ray, Jonas Schneider, Wojciech Zaremba, and Pieter Abbeel.
+\newblock Domain randomization for transferring deep neural networks from simulation to the real world.
+\newblock In \emph{2017 IEEE/RSJ international conference on intelligent robots and systems (IROS)}, pages 23--30. IEEE, 2017.
 
 \bibitem[Tessler et~al.(2019)Tessler, Efroni, and Mannor]{tessler2019action}
 Chen Tessler, Yonathan Efroni, and Shie Mannor.
-\newblock Action robust reinforcement learning and applications in continuous
-  control.
-\newblock In \emph{International Conference on Machine Learning}, pages
-  6215--6224. PMLR, 2019.
+\newblock Action robust reinforcement learning and applications in continuous control.
+\newblock In \emph{International Conference on Machine Learning}, pages 6215--6224. PMLR, 2019.
 
 \bibitem[Mouret and Clune(2015)]{mouret2015illuminating}
 Jean-Baptiste Mouret and Jeff Clune.
 \newblock Illuminating search spaces by mapping elites.
 \newblock \emph{arXiv preprint arXiv:1504.04909}, 2015.
 
-\bibitem[Allard et~al.(2023)Allard, Smith, Chatzilygeroudis, Lim, and
-  Cully]{allard2023online}
-Maxime Allard, Sim{\'o}n~C Smith, Konstantinos Chatzilygeroudis, Bryan Lim, and
-  Antoine Cully.
-\newblock Online damage recovery for physical robots with hierarchical
-  quality-diversity.
-\newblock \emph{ACM Transactions on Evolutionary Learning}, 3\penalty0
-  (2):\penalty0 1--23, 2023.
+\bibitem[Allard et~al.(2023)Allard, Smith, Chatzilygeroudis, Lim, and Cully]{allard2023online}
+Maxime Allard, Sim{\'o}n~C Smith, Konstantinos Chatzilygeroudis, Bryan Lim, and Antoine Cully.
+\newblock Online damage recovery for physical robots with hierarchical quality-diversity.
+\newblock \emph{ACM Transactions on Evolutionary Learning}, 3\penalty0 (2):\penalty0 1--23, 2023.
 
-\bibitem[Schulman et~al.(2015)Schulman, Levine, Abbeel, Jordan, and
-  Moritz]{schulman2015trust}
-John Schulman, Sergey Levine, Pieter Abbeel, Michael Jordan, and Philipp
-  Moritz.
+\bibitem[Schulman et~al.(2015)Schulman, Levine, Abbeel, Jordan, and Moritz]{schulman2015trust}
+John Schulman, Sergey Levine, Pieter Abbeel, Michael Jordan, and Philipp Moritz.
 \newblock Trust region policy optimization.
-\newblock In \emph{International conference on machine learning}, pages
-  1889--1897. PMLR, 2015.
+\newblock In \emph{International conference on machine learning}, pages 1889--1897. PMLR, 2015.
 
-\bibitem[Lillicrap et~al.(2015)Lillicrap, Hunt, Pritzel, Heess, Erez, Tassa,
-  Silver, and Wierstra]{lillicrap2015continuous}
-Timothy~P Lillicrap, Jonathan~J Hunt, Alexander Pritzel, Nicolas Heess, Tom
-  Erez, Yuval Tassa, David Silver, and Daan Wierstra.
+\bibitem[Lillicrap et~al.(2015)Lillicrap, Hunt, Pritzel, Heess, Erez, Tassa, Silver, and Wierstra]{lillicrap2015continuous}
+Timothy~P Lillicrap, Jonathan~J Hunt, Alexander Pritzel, Nicolas Heess, Tom Erez, Yuval Tassa, David Silver, and Daan Wierstra.
 \newblock Continuous control with deep reinforcement learning.
 \newblock \emph{arXiv preprint arXiv:1509.02971}, 2015.
 
@@ -238,27 +177,22 @@ Justin~K Pugh, Lisa~B Soros, and Kenneth~O Stanley.
 
 \bibitem[Coulom(2006)]{coulom2006efficient}
 R{\'e}mi Coulom.
-\newblock Efficient selectivity and backup operators in monte-carlo tree
-  search.
-\newblock In \emph{International conference on computers and games}, pages
-  72--83. Springer, 2006.
+\newblock Efficient selectivity and backup operators in monte-carlo tree search.
+\newblock In \emph{International conference on computers and games}, pages 72--83. Springer, 2006.
 
 \bibitem[Kocsis and Szepesv{\'a}ri(2006)]{kocsis2006bandit}
 Levente Kocsis and Csaba Szepesv{\'a}ri.
 \newblock Bandit based monte-carlo planning.
-\newblock In \emph{European conference on machine learning}, pages 282--293.
-  Springer, 2006.
+\newblock In \emph{European conference on machine learning}, pages 282--293. Springer, 2006.
 
 \bibitem[Littman et~al.(1995)Littman, Cassandra, and Kaelbling]{littman1995}
 Michael~L Littman, Anthony~R Cassandra, and Leslie~Pack Kaelbling.
 \newblock Learning policies for partially observable environments: Scaling up.
-\newblock In \emph{Machine Learning Proceedings 1995}, pages 362--370.
-  Elsevier, 1995.
+\newblock In \emph{Machine Learning Proceedings 1995}, pages 362--370. Elsevier, 1995.
 
 \bibitem[Monahan(1982)]{monahan1982state}
 George~E Monahan.
-\newblock State of the art—a survey of partially observable markov decision
-  processes: theory, models, and algorithms.
+\newblock State of the art—a survey of partially observable markov decision processes: theory, models, and algorithms.
 \newblock \emph{Management science}, 28\penalty0 (1):\penalty0 1--16, 1982.
 
 \end{thebibliography}
